@@ -8,13 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestUserInit {
+public class UserInit {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final LoggerService logger;
 
     @Autowired
-    public TestUserInit(UserRepository userRepository, PasswordEncoder passwordEncoder, LoggerService logger) {
+    public UserInit(UserRepository userRepository, PasswordEncoder passwordEncoder, LoggerService logger) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.logger = logger;
@@ -24,7 +24,7 @@ public class TestUserInit {
     public void createUser() {
         try {
             if (userRepository.count() == 0) {
-                logger.info("No users found in the database. Creating an admin user...");
+                logger.info("No users found in the database. Creating a user...");
 
                 CustomUser user = new CustomUser();
                 user.setUsername("test");
