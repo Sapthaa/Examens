@@ -1,5 +1,4 @@
-/* style.css */
-/* ===== Grundstilar och variabler ===== */
+/* ========== GLOBALA VARIABLER OCH BASSTILAR ========== */
 :root {
     --ol-blue: #00635D;
     --ol-light-blue: #E8F5F2;
@@ -8,10 +7,11 @@
     --ol-light-gray: #F5F5F5;
 }
 
-/* ===== Allmänna stilar ===== */
+/* Flexbox för sticky footer */
 html, body {
     height: 100%;
     margin: 0;
+    padding: 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: var(--ol-light-gray);
     color: var(--ol-dark);
@@ -24,7 +24,7 @@ body {
     min-height: 100vh;
 }
 
-/* ===== Header & Navigation ===== */
+/* ========== HEADER OCH NAVIGATION ========== */
 .header {
     position: sticky;
     top: 0;
@@ -48,6 +48,9 @@ body {
     font-weight: bold;
     color: var(--ol-blue);
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-links {
@@ -62,13 +65,14 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
     color: var(--ol-blue);
 }
 
-/* ===== Huvudinnehåll ===== */
+/* ========== HUVUDINNEHÅLL ========== */
 .main-container {
     flex: 1;
     max-width: 1200px;
@@ -76,8 +80,8 @@ body {
     padding: 0 1rem;
 }
 
-/* För inloggningssidan */
-.login-container {
+/* Gemensam stil för både inloggnings- och registreringsformulär */
+.auth-container {
     max-width: 400px;
     margin: 4rem auto;
     padding: 2rem;
@@ -87,29 +91,30 @@ body {
 }
 
 .page-header {
-    color: var(--ol-blue);
+    text-align: center;
     margin-bottom: 2rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--ol-light-blue);
+    color: var(--ol-blue);
+    font-size: 1.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
-/* För inloggningssidan */
-.page-header.login-header {
-    text-align: center;
-    font-size: 1.75rem;
-    border-bottom: none;
-    margin-bottom: 2rem;
-}
-
-/* ===== Formulärstilar ===== */
+/* Formulärstilar */
 form {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--ol-dark);
 }
 
 input[type="text"],
@@ -120,37 +125,77 @@ input[type="password"] {
     font-size: 1rem;
     width: 100%;
     box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: var(--ol-blue);
 }
 
 input::placeholder {
     color: #999;
 }
 
-button, .auth-btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-}
-
 button {
     background-color: var(--ol-blue);
     color: white;
+    padding: 0.85rem;
     border: none;
+    border-radius: 4px;
     font-size: 1rem;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 button:hover {
     background-color: #004f49;
 }
 
-/* ===== Kortsektion ===== */
+/* Extra länkar under formulär */
+.extra-links,
+.login-link {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.extra-links a,
+.login-link a {
+    color: var(--ol-blue);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.extra-links a:hover,
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Meddelanden */
+.error-message {
+    color: #D32F2F;
+    background-color: #FFEBEE;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+.success-message {
+    color: #388E3C;
+    background-color: #E8F5E9;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+/* ========== STARTSIDAN ========== */
+/* Kortsektion */
 .intro-section {
     display: flex;
     justify-content: center;
@@ -190,13 +235,24 @@ button:hover {
     transition: all 0.3s ease;
 }
 
-/* ===== Knappar ===== */
+/* Knappar på startsidan */
 .auth-options {
     display: flex;
     justify-content: center;
     gap: 2rem;
     margin-top: 2rem;
     flex-wrap: wrap;
+}
+
+.auth-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .login-btn {
@@ -216,32 +272,16 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* ===== Extra länkar ===== */
-.extra-links {
-    text-align: center;
-    margin-top: 1rem;
-}
-
-.extra-links a {
-    color: var(--ol-blue);
-    text-decoration: none;
-    font-size: 0.95rem;
-}
-
-.extra-links a:hover {
-    text-decoration: underline;
-}
-
-/* ===== Footer ===== */
+/* ========== FOOTER ========== */
 footer {
     background-color: var(--ol-dark);
     color: white;
     text-align: center;
     padding: 1.5rem 0;
-    margin-top: auto;
+    margin-top: auto; /* viktig för flexbox sticky footer */
 }
 
-/* ===== Responsiv design ===== */
+/* ========== RESPONSIV DESIGN ========== */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
@@ -251,5 +291,16 @@ footer {
     .intro-section {
         flex-direction: column;
         align-items: center;
+    }
+
+    .auth-container {
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+
+    .auth-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
 }
